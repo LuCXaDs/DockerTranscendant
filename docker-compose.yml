@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+
+  api:
+    container_name: nestJS
+    build: ./api
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+    environment:
+      DATABASE_URL: postgress://user:password@postgres:5432/database
+    ports:
+      - 3000:3000
+    
+  frontend:
+    container_name: angularJs
+    build: ./frontend
+    restart: always
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    ports:
+      - 4200:4200
+
+  postgres:
+    container_name: postgress
+    image: "postgres:latest"
+    restart: always
+    environment:
+      - POSTGRES_USER: user
+      - POSTGRES_PASSWORD: password
+      - POSTGRES_DB: database
+    ports:
+      - 5432:5432
+    
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "5050:80"
+    # env_file:
+      # - .env
