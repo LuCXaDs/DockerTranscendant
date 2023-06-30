@@ -9,7 +9,7 @@ start:
 
 restart: stop start
 
-volume:
+volume: stop
 	docker volume prune -af
 
 clean:

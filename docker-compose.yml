@@ -4,6 +4,7 @@ services:
 
   backend:
     container_name: nestJS
+    image: backend
     build: ./backend
     restart: always
     depends_on:
@@ -16,6 +17,7 @@ services:
     
   frontend:
     container_name: angularJs
+    image: frontend
     build: ./frontend
     restart: always
     volumes:
@@ -25,7 +27,7 @@ services:
       - 4200:4200
 
   postgres:
-    container_name: postgress
+    container_name: postgres
     image: "postgres:latest"
     restart: always
     environment:
@@ -34,7 +36,8 @@ services:
       - POSTGRES_DB=database
     ports:
       - 5432:5432
-    
+    # CMD: psql -U user -h localhost -p 5432 -d database
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -42,6 +45,7 @@ services:
     depends_on:
       - postgres
     environment:
+      PGADMIN_DEFAULT_USER: luserbu
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: password
     ports:
