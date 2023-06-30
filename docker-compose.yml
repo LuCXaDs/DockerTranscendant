@@ -2,17 +2,15 @@ version: "3.8"
 
 services:
 
-  api:
+  backend:
     container_name: nestJS
-    build: ./api
+    build: ./backend
     restart: always
     depends_on:
       - postgres
     volumes:
       - /app/node_modules
-      - ./api:/app
-    environment:
-      DATABASE_URL: postgress://user:password@postgres:5432/database
+      - ./backend:/app
     ports:
       - 3000:3000
     
@@ -31,9 +29,9 @@ services:
     image: "postgres:latest"
     restart: always
     environment:
-      - POSTGRES_USER: user
-      - POSTGRES_PASSWORD: password
-      - POSTGRES_DB: database
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=database
     ports:
       - 5432:5432
     
@@ -48,5 +46,3 @@ services:
       PGADMIN_DEFAULT_PASSWORD: password
     ports:
       - "5050:80"
-    # env_file:
-      # - .env
