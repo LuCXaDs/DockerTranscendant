@@ -12,7 +12,12 @@ restart: stop start
 volume: stop
 	docker volume prune -af
 
-clean: stop
-	docker system prune -af
+image: stop
+	docker images prune -a
+
+network: stop
+	docker network rm dockertranscendant_default
+
+clean: stop volume image
 
 re: stop clean build
