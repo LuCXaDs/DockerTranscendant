@@ -12,9 +12,7 @@ restart: stop start
 volume: stop
 	docker volume prune -af
 
-clean:
+clean: stop
 	docker system prune -af
-
-fclean: stop clean
 
 re: stop clean build

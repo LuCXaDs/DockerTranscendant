@@ -36,6 +36,8 @@ services:
       - POSTGRES_DB=database
     ports:
       - 5432:5432
+
+    # Pour entrer dans la base de donnes
     # CMD: psql -U user -h localhost -p 5432 -d database
 
   pgadmin:
